@@ -85,12 +85,14 @@ bool MainScene::init()
         return false;
     }
     
+    cocos2d::Size screenSize = Director::getInstance()->getVisibleSize();
+    
     auto rootNode = CSLoader::createNode("MainScene.csb");
     
     SceneryLayer* test = SceneryLayer::create();
     this->sceneryLayers.pushBack( test );
     test->setScene( this );
-    test->initSizeX( Director::getInstance()->getVisibleSize().width );
+    test->initSizeX( screenSize.width );
     test->initNumberOfNodes( 5 );
     test->setDensity( 0.6 );
     test->setSpriteScaleVar( 0.1f );
@@ -99,7 +101,7 @@ bool MainScene::init()
     SceneryLayer* test2 = SceneryLayer::create();
     this->sceneryLayers.pushBack( test2 );
     test2->setScene( this );
-    test2->initSizeX( Director::getInstance()->getVisibleSize().width );
+    test2->initSizeX( screenSize.width );
     test2->initNumberOfNodes( 6 );
     test2->initDistanceFactor( .4f );
     test2->setSpriteScale( 0.75f );
@@ -113,9 +115,14 @@ bool MainScene::init()
     
     this->scheduleUpdate();
     
-    currentBiome = std::unique_ptr<Biome>(new Biome);
-    currentBiome->scenerySprites.push_back("Biome1/tree.png");
-    currentBiome->scenerySprites.push_back("Biome1/rock.png");
+    std::vector<std::string> scenerySprites;
+    scenerySprites.push_back("Biome1/tree.png");
+    scenerySprites.push_back("Biome1/rock.png");
+    currentBiome = std::unique_ptr<Biome>(new Biome(scenerySprites));
+    
+    background = LayerColor::create( currentBiome->getFogColor(), screenSize.width, screenSize.height );
+    this->addChild( background );
+    background->setLocalZOrder( std::numeric_limits<int>::min() );
     
     return true;
 }

@@ -27,6 +27,7 @@ public:
 private:
     cocos2d::Vector<SceneryLayer*> sceneryLayers;
     void setUpSceneryZOrders();
+    cocos2d::LayerColor* background;
 
     std::unique_ptr<Biome> currentBiome;
 };
