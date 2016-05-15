@@ -27,10 +27,18 @@ public:
     
     /**
      Move the scrolling layer the given distance.  Check for overflow and handle it.
-     @param dist The amount to move.  Positive values move objects to the right (as though the camera were moving to the left), and the converse for negative values.
+     * @param dist The amount to move.  Positive values move objects to the right (as though the camera were moving to the left), and the converse for negative values.
      */
     virtual void step( float dist );
     
+    /**
+     * Set the 'distance factor' of the layer.  The distance factor affects the amount that the layer scrolls to simulate a parallax effect.  A distance factor of 0 is flush with the camera plane, 1 is infinitely far (no movement when scrolling).
+     *
+     * The distance factor can also be used for other purposes, e.g. determining the appropriate thickness of fog to apply to an object.
+     *
+     * The 'init' in the name should be self-documenting.  While it is possible to set the distance factor to a new value at any time, this will likely make the layer look like it "popped" into another plane.  I suppose you could smoothly animate the distance factor to achieve some sort of effect, but coolness not guaranteed.
+     * @param distanceFactor The distance factor.  Should be between 0.0 and 1.0.
+     */
     virtual void initDistanceFactor( float distanceFactor ) {
         if ( distanceFactor < 0 ) {
             std::invalid_argument( "invalid distance factor value, must be >= 0" );
@@ -39,6 +47,12 @@ public:
         distanceFactor = std::min<float>( distanceFactor, 1.f );
         this->distanceFactor = distanceFactor;
     }
+    
+    /**
+     Get the distance factor for this layer.
+     @see `initDistanceFactor`
+     @return A float representing the distance of the layer to the camera.
+     */
     float getDistanceFactor() {
         return this->distanceFactor;
     }
@@ -48,7 +62,17 @@ protected:
         Backward,
     };
     
+    /**
+     * Handle the cycling of nodes from one end of the screen back around to the other.  The `MoveDirection` is provided as either `MoveDirection::Forward` or `MoveDirection::Backward`.
+     *
+     * Must be implemented by subclasses.
+     * @param direction Either `MoveDirection::Forward` or `MoveDirection::Backward`
+     */
     virtual void handleCycling( MoveDirection direction )=0;
+    
+    /**
+     The container for nodes that are scrolled.  Subclasses must add the `nodeContainer` to the scene in some meaningful way for the objects to appear, typically through `this->addChild( nodeContainer )`.
+     */
     cocos2d::Node* nodeContainer;
 private:
     float distanceFactor;
