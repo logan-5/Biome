@@ -21,7 +21,7 @@ bool SceneryLayer::init() {
     this->addChild( nodeContainer );
     hasSetNumberOfNodes = hasSetSizeX = false;
     setDensity( 1.f );
-    initDistanceFactor( 1.f );
+    initDistanceFactor( 0.f );
     setSpriteScale( 1.f );
     setSpriteScaleVar( .1f );
     return true;
@@ -44,7 +44,7 @@ void SceneryLayer::step(float absDist) {
     if ( !this->ready ) {
         return;
     }
-    float dist = absDist / this->distanceFactor;
+    float dist = absDist * (1.f-this->distanceFactor);
     float newX = nodeContainer->getPositionX() + dist;
     nodeContainer->setPositionX( newX );
     

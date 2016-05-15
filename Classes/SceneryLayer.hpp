@@ -52,9 +52,10 @@ public:
     }
     void initDistanceFactor( float distanceFactor ) {
         if ( distanceFactor <= 0 ) {
-            CCLOG( "invalid distance factor value" );
+            CCLOG( "invalid distance factor value, must be >= 0" );
             return;
         }
+        distanceFactor = std::min<float>( distanceFactor, 1.f );
         this->distanceFactor = distanceFactor;
     }
     float getDistanceFactor() {
@@ -82,7 +83,7 @@ public:
     void setScene( MainScene* scene ) {
         this->scene = scene;
     }
-
+    
     const Biome& getBiome();
     
     void step( float absDist );
@@ -95,7 +96,7 @@ private:
     cocos2d::Node* nodeContainer;
     int numberOfNodes;
     float sizeX;
-    float distanceFactor;
+    float distanceFactor; // 0 = camera plane, 1 = infinitely far
     float density;
     float spriteScale, spriteScaleVar;
     bool hasSetNumberOfNodes, hasSetSizeX, ready;

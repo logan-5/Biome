@@ -101,7 +101,7 @@ bool MainScene::init()
     test2->setScene( this );
     test2->initSizeX( Director::getInstance()->getVisibleSize().width );
     test2->initNumberOfNodes( 6 );
-    test2->initDistanceFactor( 2.f );
+    test2->initDistanceFactor( .4f );
     test2->setSpriteScale( 0.75f );
     test2->setSpriteScaleVar( 0.1f );
     test2->setDensity( 0.75 );
@@ -112,7 +112,7 @@ bool MainScene::init()
     addChild(rootNode);
     
     this->scheduleUpdate();
-
+    
     currentBiome = std::unique_ptr<Biome>(new Biome);
     currentBiome->scenerySprites.push_back("Biome1/tree.png");
     currentBiome->scenerySprites.push_back("Biome1/rock.png");
