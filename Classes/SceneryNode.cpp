@@ -28,6 +28,7 @@ void SceneryNode::onEnter() {
 void SceneryNode::setUpSprite() {
     if ( !layer ) {
         CCLOG( "scenery node must be added to a SceneryLayer before it is added to scene!" );
+        return;
     }
     bool visibilityCoinToss = cocos2d::rand_0_1() < layer->getDensity();
     if ( visibilityCoinToss ) {

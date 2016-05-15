@@ -61,11 +61,11 @@ float TerrainLayer::getHeightForScreenXCoordinate(float x) {
     x = this->nodeContainer->convertToNodeSpace( cocos2d::Vec2( x, 0.f ) ).x;
     
     // find the chunk that x is over
-    TerrainChunk* chunk;
+    TerrainChunk* chunk = nullptr;
     for ( auto& c : this->terrainChunks ) {
         if ( c->getPositionX() > x ) break;
         chunk = c;
     }
     // use that chunk to get the Y
-    return chunk->getHeightForAbsoluteXCoordinate( x );
+    return chunk ? chunk->getHeightForAbsoluteXCoordinate( x ): 0.f;
 }

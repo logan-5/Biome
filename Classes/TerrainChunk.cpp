@@ -49,9 +49,9 @@ void TerrainChunk::onDraw(const cocos2d::Mat4 &transform, uint32_t flags) {
 
 float TerrainChunk::getHeightForAbsoluteXCoordinate(float x) {
     x -= this->getPositionX();
-    int pointCount = points.size();
+    unsigned long pointCount = points.size();
     float fraction = (float)pointCount * (x / this->getContentSize().width);
-    int index = (int)fraction;
+    unsigned long index = (unsigned long)fraction;
     float minValue = points[index].y;
     float maxValue = points[index+1].y;
     float factor = fraction - index;
