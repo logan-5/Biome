@@ -24,6 +24,7 @@ public:
     };
 
     Biome( FogInfo fogInfo = FogInfo(), std::vector<std::string> scenerySprites = std::vector<std::string>() );
+    Biome( std::string folderPath, FogInfo fogInfo = FogInfo() );
 
     const std::vector<std::string>& getScenerySprites() const {
         return scenerySprites;

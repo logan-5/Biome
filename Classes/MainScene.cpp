@@ -116,9 +116,7 @@ bool MainScene::init()
     this->scheduleUpdate();
     
     std::vector<std::string> scenerySprites;
-    scenerySprites.push_back("Biome1/tree.png");
-    scenerySprites.push_back("Biome1/rock.png");
-    currentBiome = std::unique_ptr<Biome>(new Biome(Biome::FogInfo(Color4F::GRAY, .5f), scenerySprites));
+    currentBiome = std::unique_ptr<Biome>(new Biome( "Biome1", Biome::FogInfo(Color4F::GRAY, .5f) ));
     
     background = LayerColor::create( Color4B(currentBiome->getFogColor()), screenSize.width, screenSize.height );
     this->addChild( background );
