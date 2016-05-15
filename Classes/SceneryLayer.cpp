@@ -57,7 +57,6 @@ void SceneryLayer::handleCycling(MoveDirection direction) {
     switch ( direction ) {
         case MoveDirection::Forward: {
             cycleNode = this->sceneryNodes.front();
-            CCLOG( "%f\n%f", cycleNode->getPositionX() + nodeContainer->getPositionX(), -cycleNode->getContentSize().width );
             if ( ( cycleNode->getPositionX() + nodeContainer->getPositionX() ) < -cycleNode->getContentSize().width ) {
                 shouldCycle = true;
             }

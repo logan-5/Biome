@@ -51,7 +51,7 @@ public:
         }
     }
     void initDistanceFactor( float distanceFactor ) {
-        if ( distanceFactor <= 0 ) {
+        if ( distanceFactor < 0 ) {
             CCLOG( "invalid distance factor value, must be >= 0" );
             return;
         }

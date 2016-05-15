@@ -8,7 +8,7 @@
 
 #include "Biome.hpp"
 
-Biome::Biome( std::vector<std::string> scenerySprites, cocos2d::Color4B fogColor )
+Biome::Biome( FogInfo fogInfo, std::vector<std::string> scenerySprites )
 :   scenerySprites( scenerySprites ),
-    fogColor( fogColor )
+    fogInfo( fogInfo )
 {}

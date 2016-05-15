@@ -8,31 +8,9 @@
 
 #include "SceneryNode.hpp"
 #include "SceneryLayer.hpp"
+#include "SceneryNodeSprite.hpp"
 
 using cocos2d::Vec2;
-
-class SceneryNodeSprite : public cocos2d::Sprite {
-public:
-    static SceneryNodeSprite* create( const std::string& filename ) {
-        SceneryNodeSprite *pRet = new(std::nothrow) SceneryNodeSprite();
-        if (pRet && pRet->initWithFile( filename ) ) {
-            pRet->autorelease();
-            return pRet;
-        } else {
-            delete pRet;
-            pRet = nullptr;
-            return nullptr;
-        }
-    }
-    void onEnter() override;
-};
-
-void SceneryNodeSprite::onEnter() {
-    cocos2d::Sprite::onEnter();
-    this->setAnchorPoint( Vec2( 0.5f, 0.f ) );
-    this->setNormalizedPosition( Vec2( 0.5, 0 ) );
-    this->setFlippedX( cocos2d::rand_minus1_1() > 0 );
-}
 
 bool SceneryNode::init() {
     if ( !cocos2d::Node::init() ) {
@@ -57,7 +35,7 @@ void SceneryNode::setUpSprite() {
         auto biome = layer->getBiome();
         auto spriteList = biome.getScenerySprites();
         std::string filename = spriteList[spriteList.size()*cocos2d::rand_0_1()];
-        this->sprite = SceneryNodeSprite::create( filename );
+        this->sprite = SceneryNodeSprite::create( filename, layer->getDistanceFactor(), layer->getBiome().getFogInfo() );
 
         this->addChild( sprite );
         this->sprite->setScale( layer->getSpriteScale() + layer->getSpriteScaleVar()*cocos2d::rand_minus1_1() );

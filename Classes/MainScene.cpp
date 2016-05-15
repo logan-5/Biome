@@ -118,9 +118,9 @@ bool MainScene::init()
     std::vector<std::string> scenerySprites;
     scenerySprites.push_back("Biome1/tree.png");
     scenerySprites.push_back("Biome1/rock.png");
-    currentBiome = std::unique_ptr<Biome>(new Biome(scenerySprites));
+    currentBiome = std::unique_ptr<Biome>(new Biome(Biome::FogInfo(Color4F::GRAY, .5f), scenerySprites));
     
-    background = LayerColor::create( currentBiome->getFogColor(), screenSize.width, screenSize.height );
+    background = LayerColor::create( Color4B(currentBiome->getFogColor()), screenSize.width, screenSize.height );
     this->addChild( background );
     background->setLocalZOrder( std::numeric_limits<int>::min() );
     

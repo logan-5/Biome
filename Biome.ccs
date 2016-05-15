@@ -8,6 +8,7 @@
           <Image Name="rock.png" />
           <Image Name="tree.png" />
         </Folder>
+        <Folder Name="Biome2" />
       </RootFolder>
     </Group>
   </SolutionFolder>

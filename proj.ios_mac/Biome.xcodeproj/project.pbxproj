@@ -10,6 +10,7 @@
 		02912B901CE7C8B5005FEC77 /* SceneryLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B8E1CE7C8B5005FEC77 /* SceneryLayer.cpp */; };
 		02912B931CE7CEB4005FEC77 /* SceneryNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */; };
 		02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B951CE7F6DF005FEC77 /* Biome.cpp */; };
+		02912B9A1CE81BAE005FEC77 /* SceneryNodeSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B981CE81BAE005FEC77 /* SceneryNodeSprite.cpp */; };
 		1BA14E61BFBE7D2B1AD88962 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 01F741B993AED8B544209AD5 /* res */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -74,6 +75,8 @@
 		02912B921CE7CEB4005FEC77 /* SceneryNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneryNode.hpp; sourceTree = "<group>"; };
 		02912B951CE7F6DF005FEC77 /* Biome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Biome.cpp; sourceTree = "<group>"; };
 		02912B961CE7F6DF005FEC77 /* Biome.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Biome.hpp; sourceTree = "<group>"; };
+		02912B981CE81BAE005FEC77 /* SceneryNodeSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneryNodeSprite.cpp; sourceTree = "<group>"; };
+		02912B991CE81BAE005FEC77 /* SceneryNodeSprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneryNodeSprite.hpp; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Biome-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Biome-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +263,8 @@
 				02912B8F1CE7C8B5005FEC77 /* SceneryLayer.hpp */,
 				02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */,
 				02912B921CE7CEB4005FEC77 /* SceneryNode.hpp */,
+				02912B981CE81BAE005FEC77 /* SceneryNodeSprite.cpp */,
+				02912B991CE81BAE005FEC77 /* SceneryNodeSprite.hpp */,
 				02912B951CE7F6DF005FEC77 /* Biome.cpp */,
 				02912B961CE7F6DF005FEC77 /* Biome.hpp */,
 			);
@@ -445,6 +450,7 @@
 				02912B901CE7C8B5005FEC77 /* SceneryLayer.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */,
+				02912B9A1CE81BAE005FEC77 /* SceneryNodeSprite.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
