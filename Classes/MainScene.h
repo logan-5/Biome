@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "SceneryLayer.hpp"
+#include "TerrainLayer.hpp"
 #include "BiomeManager.hpp"
 
 #include <memory>
@@ -26,6 +27,7 @@ public:
     }
 private:
     cocos2d::Vector<SceneryLayer*> sceneryLayers;
+    cocos2d::Vector<TerrainLayer*> terrainLayers;
     void setUpSceneryZOrders();
     cocos2d::LayerColor* background;
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		021C3E8E1CE830A600DFF9EB /* BiomeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */; };
+		021C3E911CE8573900DFF9EB /* TerrainGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021C3E8F1CE8573900DFF9EB /* TerrainGenerator.cpp */; };
+		021C3E941CE857A500DFF9EB /* TerrainChunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021C3E921CE857A500DFF9EB /* TerrainChunk.cpp */; };
+		021C3E971CE86FD200DFF9EB /* TerrainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021C3E951CE86FD200DFF9EB /* TerrainLayer.cpp */; };
 		02912B901CE7C8B5005FEC77 /* SceneryLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B8E1CE7C8B5005FEC77 /* SceneryLayer.cpp */; };
 		02912B931CE7CEB4005FEC77 /* SceneryNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */; };
 		02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B951CE7F6DF005FEC77 /* Biome.cpp */; };
@@ -72,6 +75,12 @@
 		01F741B993AED8B544209AD5 /* res */ = {isa = PBXFileReference; lastKnownFileType = "?"; name = res; path = ../Resources/res; sourceTree = "<group>"; };
 		021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BiomeManager.cpp; sourceTree = "<group>"; };
 		021C3E8D1CE830A600DFF9EB /* BiomeManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BiomeManager.hpp; sourceTree = "<group>"; };
+		021C3E8F1CE8573900DFF9EB /* TerrainGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerrainGenerator.cpp; path = ../proj.ios_mac/TerrainGenerator.cpp; sourceTree = "<group>"; };
+		021C3E901CE8573900DFF9EB /* TerrainGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TerrainGenerator.hpp; path = ../proj.ios_mac/TerrainGenerator.hpp; sourceTree = "<group>"; };
+		021C3E921CE857A500DFF9EB /* TerrainChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainChunk.cpp; sourceTree = "<group>"; };
+		021C3E931CE857A500DFF9EB /* TerrainChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TerrainChunk.hpp; sourceTree = "<group>"; };
+		021C3E951CE86FD200DFF9EB /* TerrainLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainLayer.cpp; sourceTree = "<group>"; };
+		021C3E961CE86FD200DFF9EB /* TerrainLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TerrainLayer.hpp; sourceTree = "<group>"; };
 		02912B8E1CE7C8B5005FEC77 /* SceneryLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneryLayer.cpp; sourceTree = "<group>"; };
 		02912B8F1CE7C8B5005FEC77 /* SceneryLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneryLayer.hpp; sourceTree = "<group>"; };
 		02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneryNode.cpp; sourceTree = "<group>"; };
@@ -272,6 +281,12 @@
 				02912B961CE7F6DF005FEC77 /* Biome.hpp */,
 				021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */,
 				021C3E8D1CE830A600DFF9EB /* BiomeManager.hpp */,
+				021C3E8F1CE8573900DFF9EB /* TerrainGenerator.cpp */,
+				021C3E901CE8573900DFF9EB /* TerrainGenerator.hpp */,
+				021C3E921CE857A500DFF9EB /* TerrainChunk.cpp */,
+				021C3E931CE857A500DFF9EB /* TerrainChunk.hpp */,
+				021C3E951CE86FD200DFF9EB /* TerrainLayer.cpp */,
+				021C3E961CE86FD200DFF9EB /* TerrainLayer.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -451,13 +466,16 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* MainScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				021C3E911CE8573900DFF9EB /* TerrainGenerator.cpp in Sources */,
 				02912B931CE7CEB4005FEC77 /* SceneryNode.cpp in Sources */,
 				02912B901CE7C8B5005FEC77 /* SceneryLayer.cpp in Sources */,
+				021C3E971CE86FD200DFF9EB /* TerrainLayer.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */,
 				02912B9A1CE81BAE005FEC77 /* SceneryNodeSprite.cpp in Sources */,
 				021C3E8E1CE830A600DFF9EB /* BiomeManager.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				021C3E941CE857A500DFF9EB /* TerrainChunk.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

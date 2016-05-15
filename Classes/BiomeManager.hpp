@@ -10,6 +10,7 @@
 #define BiomeManager_hpp
 
 #include "Biome.hpp"
+#include "TerrainGenerator.hpp"
 #include <memory>
 
 class BiomeManager {
@@ -18,8 +19,10 @@ public:
     void step( float dt );
     const std::vector<std::string>& getScenerySpriteList() const;
     const Biome::FogInfo& getCurrentFogInfo() const;
+    TerrainGenerator& getTerrainGenerator() const;
 private:
     std::unique_ptr<Biome> currentBiome, nextBiome;
+    std::unique_ptr<TerrainGenerator> terrainGenerator;
     Biome::FogInfo currentFogInfo;
     float currentBiomeDuration, currentBiomeProgress;
     float tweenDuration, tweenProgress;

@@ -40,15 +40,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
     
     FileUtils::getInstance()->addSearchPath("res");
-    
+
+    // seed random
+    std::srand( (unsigned int)std::time( 0 ) );
+
     // create a scene. it's an autorelease object
     auto scene = MainScene::createScene();
-    
+
     // run
     director->runWithScene(scene);
-    
-    std::srand( (unsigned int)std::time( 0 ) );
-    
+
     return true;
 }
 

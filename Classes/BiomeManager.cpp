@@ -31,7 +31,8 @@ currentBiomeProgress( 0.f ),
 tweenDuration( 0.f ),
 tweenProgress( 0.f ),
 lastPath("Biome1"),
-state(State::Normal)
+state(State::Normal),
+terrainGenerator( std::unique_ptr<TerrainGenerator>( new TerrainGenerator() ) )
 {
     currentBiome = std::unique_ptr<Biome>( new Biome(lastPath) );
     currentBiomeDuration = cocos2d::random( 10.f, 20.f );
@@ -107,4 +108,8 @@ const std::vector<std::string>& BiomeManager::getScenerySpriteList() const {
 
 const Biome::FogInfo& BiomeManager::getCurrentFogInfo() const {
     return currentFogInfo;
+}
+
+TerrainGenerator& BiomeManager::getTerrainGenerator() const {
+    return *terrainGenerator;
 }

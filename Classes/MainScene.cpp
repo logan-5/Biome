@@ -2,6 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "SceneryLayer.hpp"
+#include "TerrainLayer.hpp"
 
 USING_NS_CC;
 
@@ -121,6 +122,11 @@ bool MainScene::init()
     this->addChild( background );
     background->setLocalZOrder( std::numeric_limits<int>::min() );
     
+    TerrainLayer* t = TerrainLayer::create();
+    this->addChild(t);
+    this->terrainLayers.pushBack( t );
+    t->setLocalZOrder(std::numeric_limits<int>::max());
+    
     return true;
 }
 
@@ -141,8 +147,10 @@ void MainScene::update(float dt) {
     this->biomeManager->step( dt );
     for ( auto& sl : this->sceneryLayers ) {
         sl->step( -4.f );
-        
     }
-
+    for ( auto& tl : this->terrainLayers ) {
+        tl->step( -4.f );
+    }
+    
     background->setColor( Color3B( this->biomeManager->getCurrentFogInfo().color ) );
 }
