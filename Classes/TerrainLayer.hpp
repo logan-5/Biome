@@ -36,7 +36,6 @@ public:
     distanceFactor( 0.f )
     {}
     bool init() override;
-    //void onEnter() override;
     
     /**
      * Get the height of the terrain at the given x coordinate.  The coordinate is given in screen coordinates for simplicity.  The x coordinate must therefore be a valid screen coordinate, or an exception will be thrown.
@@ -46,6 +45,11 @@ public:
     float getHeightForScreenXCoordinate( float x );
     
     void step( float dt ) override;
+    
+    /**
+     * Automatically invoked the first time is the layer stepped, or upon pairing the layer with a SceneryLayer.  If you need to display the terrain before stepping it, or have some property change take effect immediately, you must invoke it manually.
+     */
+    void setUpTerrainLayer();
 private:
     bool ready;
     TerrainGenerator generator;

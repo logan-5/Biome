@@ -130,6 +130,7 @@ public:
     void initTerrainLayer( TerrainLayer* t ) {
         this->terrain = t;
         if ( this->terrain ) {
+            t->setUpTerrainLayer();
             t->initDistanceFactor( this->getDistanceFactor() );
             t->setLocalZOrder( this->getLocalZOrder() );
         }

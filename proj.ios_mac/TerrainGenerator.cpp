@@ -12,7 +12,7 @@ TerrainChunk* TerrainGenerator::nextTerrainChunk(float width, float height) {
     this->generatePoints();
     
     TerrainChunk* t = TerrainChunk::create();
-    double stepX = width / (this->resolution-1);
+    double stepX = width / (this->points.size()-1);
     for ( int i = 0; i < this->points.size(); ++i ) {
         cocos2d::Vec2 point( i*stepX, this->points[i]*height );
         t->points.push_back( point );
@@ -23,26 +23,52 @@ TerrainChunk* TerrainGenerator::nextTerrainChunk(float width, float height) {
 
 void TerrainGenerator::generatePoints() {
     this->points.clear();
+    
     // TODO change this algorithm
-    for ( int i = 0; i < resolution; ++i ) {
-        this->points.push_back(startingHeight);
+    decltype(this->points) newPoints;
+    newPoints.reserve( features );
+    for ( int i = 0; i < features; ++i ) {
+        newPoints.push_back(startingHeight);
     }
     
     //std::srand(std::time(0));
     CCRANDOM_0_1();
     CCRANDOM_MINUS1_1();
-    this->points[resolution-1] = CCRANDOM_0_1();
-    midpointDisplace( points, 0, resolution, featureDecay );
-    this->points[0] = startingHeight;
-    startingHeight = this->points[resolution-1];
+    newPoints[features-1] = CCRANDOM_0_1();
+    midpointDisplace( newPoints, 0, features );
+    newPoints[0] = startingHeight;
+
+    // add smoothing
+    if ( this->smoothing > 0 ) {
+        decltype(newPoints) tempNewPoints;
+        tempNewPoints.reserve( features*(1+this->smoothing) );
+
+        double deltaAngle = M_PI / (this->smoothing+1.0);
+        int i = 0;
+        for ( ; i < newPoints.size()-1; ++i ) {
+            tempNewPoints.push_back( newPoints[i] );
+            double ampl = (newPoints[i] - newPoints[i+1]) / 2.0;
+            double midpoint = (newPoints[i] + newPoints[i+1]) / 2.0;
+            for ( int j = 1; j <= this->smoothing; ++j ) {
+                double ang = deltaAngle*j;
+                double y = cos(ang) * ampl + midpoint;
+                tempNewPoints.push_back(y);
+            }
+        }
+        tempNewPoints.push_back(newPoints[i]);
+
+        newPoints = tempNewPoints;
+    }
+    this->points = newPoints;
+    this->startingHeight = newPoints.back();
 }
 
-void TerrainGenerator::midpointDisplace( std::vector<double>& points, int min, int max, double decay ) {
+void TerrainGenerator::midpointDisplace( std::vector<double>& points, int min, int max ) {
     if ( max - min <= 1 ) {
         return;
     }
     
-    double displacement = decay * roughness * cocos2d::rand_minus1_1();
+    double displacement = featureSize * cocos2d::rand_minus1_1();
     if ( max - min == 2 ) {
         points[min] += displacement;
         points[min+1] += displacement;
@@ -53,6 +79,6 @@ void TerrainGenerator::midpointDisplace( std::vector<double>& points, int min, i
     int middleIndex = ((max-min) / 2.0) + min;
     points[middleIndex] = midpoint + displacement;
     
-    midpointDisplace( points, min, middleIndex+1, decay*decay );
-    midpointDisplace( points, middleIndex, max, decay*decay );
+    midpointDisplace( points, min, middleIndex+1 );
+    midpointDisplace( points, middleIndex, max );
 }

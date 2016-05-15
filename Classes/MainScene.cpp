@@ -91,9 +91,9 @@ bool MainScene::init()
     auto rootNode = CSLoader::createNode("MainScene.csb");
     
     TerrainLayer* t = TerrainLayer::create();
-    this->addChild(t);
-    this->terrainLayers.pushBack( t );
     t->setContentSize( cocos2d::Size( screenSize.width, screenSize.height/2.f ) );
+    rootNode->addChild(t);
+    this->terrainLayers.pushBack( t );
     
     SceneryLayer* test = SceneryLayer::create();
     test->initTerrainLayer( t );
@@ -104,9 +104,9 @@ bool MainScene::init()
     test->setDensity( 0.6 );
     test->setSpriteScaleVar( 0.1f );
     rootNode->addChild( test );
-
+    
     t = TerrainLayer::create();
-    this->addChild(t);
+    rootNode->addChild(t);
     this->terrainLayers.pushBack( t );
     SceneryLayer* test2 = SceneryLayer::create();
     test2->initTerrainLayer( t );

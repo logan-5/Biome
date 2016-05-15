@@ -17,15 +17,21 @@ bool TerrainLayer::init() {
     this->setContentSize( screenSize );
     this->addChild( nodeContainer );
     
-    addNewTerrainChunk();
-    addNewTerrainChunk();
-    
-    ready = true;
     return true;
 }
 
+void TerrainLayer::setUpTerrainLayer() {
+    this->nodeContainer->removeAllChildren();
+    this->terrainChunks.clear();
+    addNewTerrainChunk();
+    addNewTerrainChunk();
+    this->ready = true;
+}
+
 void TerrainLayer::step(float dt) {
-    if ( !this->ready ) return;
+    if ( !this->ready ) {
+        this->setUpTerrainLayer();
+    }
     ScrollingLayer::step(dt);
 }
 

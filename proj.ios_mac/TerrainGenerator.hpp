@@ -18,27 +18,32 @@
 class TerrainGenerator {
 public:
     TerrainGenerator()
-    : resolution(50.),
-    roughness(.05),
+    : features(5),
+    featureSize(.25),
     startingHeight(0.25),
-    featureDecay(0.99)
+    smoothing(25)
     {}
     
     /**
-     Sets the "resolution" of the terrain generator (which is 50 by default).  The resolution is essentially the number of "divisions" within the terrain.
-     @param resolution The new resolution.
-     @todo Wait... why is resolution a double?  Shouldn't it be an int?
+     Sets the number of features in the next terrain chunk.  A feature is essentially a "division" within the terrain.
+     @param features The new number of features.
      */
-    void setResolution( double resolution ) {
-        this->resolution = resolution;
-        this->points.reserve( resolution );
+    void setFeatures( int features ) {
+        this->features = features;
     }
     
     /**
-     Sets the "roughness" of the terrain generator (which is 0.05 by default).  The roughness represents the amount of displacement that can be applied between terrain steps.
+     Sets the "featureSize" of the terrain generator (which is 0.05 by default).  The featureSize represents the amount of displacement that can be applied between terrain steps.
      */
-    void setRoughness( double roughness ) {
-        this->roughness = roughness;
+    void setfeatureSize( double featureSize ) {
+        this->featureSize = featureSize;
+    }
+    
+    /**
+     Sets the smoothness of the terrain, which adds steps in between resolution steps to interpolate on a curve.
+     */
+    void setSmoothing( int smoothing ) {
+        this->smoothing = smoothing;
     }
     
     /**
@@ -48,14 +53,14 @@ public:
      */
     TerrainChunk* nextTerrainChunk( float width, float height );
 private:
-    double resolution;
-    double roughness;
-    double featureDecay;
+    int features;
+    double featureSize;
     double startingHeight;
+    int smoothing;
     std::vector<double> points;
     
     void generatePoints();
-    void midpointDisplace( std::vector<double>& points, int min, int max, double decay );
+    void midpointDisplace( std::vector<double>& points, int min, int max );
 };
 
 #endif /* TerrainGenerator_hpp */
