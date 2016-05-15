@@ -11,17 +11,14 @@
 
 #include "cocos2d.h"
 #include <deque>
+#include "TerrainLayer.hpp"
+#include "ScrollingLayer.hpp"
 class BiomeManager;
-
-enum class MoveDirection {
-    Forward,
-    Backward,
-};
 
 class SceneryNode;
 class MainScene;
 
-class SceneryLayer : public cocos2d::Node {
+class SceneryLayer : public cocos2d::Node, public ScrollingLayer {
 public:
     CREATE_FUNC(SceneryLayer);
     
@@ -50,16 +47,10 @@ public:
             this->setUpSceneryNode();
         }
     }
-    void initDistanceFactor( float distanceFactor ) {
-        if ( distanceFactor < 0 ) {
-            CCLOG( "invalid distance factor value, must be >= 0" );
-            return;
-        }
-        distanceFactor = std::min<float>( distanceFactor, 1.f );
-        this->distanceFactor = distanceFactor;
-    }
-    float getDistanceFactor() {
-        return this->distanceFactor;
+
+    void initDistanceFactor( float distanceFactor) override {
+        SceneryLayer::ScrollingLayer::initDistanceFactor( distanceFactor );
+        if ( this->terrain ) this->terrain->initDistanceFactor( distanceFactor );
     }
     
     void setDensity( float density ) {
@@ -83,26 +74,32 @@ public:
     void setScene( MainScene* scene ) {
         this->scene = scene;
     }
+    void initTerrainLayer( TerrainLayer* t ) {
+        this->terrain = t;
+        t->initDistanceFactor( this->getDistanceFactor() );
+        t->setLocalZOrder( this->getLocalZOrder() );
+    }
     
     const BiomeManager& getBiomeManager();
     
-    void step( float absDist );
+    void step( float absDist ) override;
     
 protected:
     std::deque<SceneryNode*> sceneryNodes;
     
 private:
     MainScene* scene;
-    cocos2d::Node* nodeContainer;
     int numberOfNodes;
     float sizeX;
-    float distanceFactor; // 0 = camera plane, 1 = infinitely far
+    
     float density;
     float spriteScale, spriteScaleVar;
     bool hasSetNumberOfNodes, hasSetSizeX, ready;
+    TerrainLayer* terrain;
     
     void setUpSceneryNode();
-    void handleCycling( MoveDirection direction );
+    void handleCycling( MoveDirection direction ) override;
+    float getYPositionForNode( const SceneryNode& node, float xOffset = 0 );
 };
 
 #endif /* SceneryLayer_hpp */

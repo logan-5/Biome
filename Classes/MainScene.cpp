@@ -90,7 +90,13 @@ bool MainScene::init()
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
     
+    TerrainLayer* t = TerrainLayer::create();
+    this->addChild(t);
+    this->terrainLayers.pushBack( t );
+    t->setContentSize( cocos2d::Size( screenSize.width, screenSize.height/2.f ) );
+    
     SceneryLayer* test = SceneryLayer::create();
+    test->initTerrainLayer( t );
     this->sceneryLayers.pushBack( test );
     test->setScene( this );
     test->initSizeX( screenSize.width );
@@ -98,8 +104,12 @@ bool MainScene::init()
     test->setDensity( 0.6 );
     test->setSpriteScaleVar( 0.1f );
     rootNode->addChild( test );
-    
+
+    t = TerrainLayer::create();
+    this->addChild(t);
+    this->terrainLayers.pushBack( t );
     SceneryLayer* test2 = SceneryLayer::create();
+    test2->initTerrainLayer( t );
     this->sceneryLayers.pushBack( test2 );
     test2->setScene( this );
     test2->initSizeX( screenSize.width );
@@ -122,11 +132,6 @@ bool MainScene::init()
     this->addChild( background );
     background->setLocalZOrder( std::numeric_limits<int>::min() );
     
-    TerrainLayer* t = TerrainLayer::create();
-    this->addChild(t);
-    this->terrainLayers.pushBack( t );
-    t->setLocalZOrder(std::numeric_limits<int>::max());
-    
     return true;
 }
 
@@ -145,11 +150,15 @@ void MainScene::setUpSceneryZOrders() {
 
 void MainScene::update(float dt) {
     this->biomeManager->step( dt );
-    for ( auto& sl : this->sceneryLayers ) {
-        sl->step( -4.f );
-    }
+    
+    // NOTE: terrain layers MUST be stepped first
+    // so scenery layers have the terrain they need
+    // to determine their Y positions
     for ( auto& tl : this->terrainLayers ) {
         tl->step( -4.f );
+    }
+    for ( auto& sl : this->sceneryLayers ) {
+        sl->step( -4.f );
     }
     
     background->setColor( Color3B( this->biomeManager->getCurrentFogInfo().color ) );

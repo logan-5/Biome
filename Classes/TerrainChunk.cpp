@@ -16,6 +16,14 @@
  }
  }*/
 
+bool TerrainChunk::init() {
+    if(!cocos2d::Layer::init()) {
+        return false;
+    }
+    _DEBUGGING_ONLY_lineColor = cocos2d::Color4F( CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.f );
+    return true;
+}
+
 void TerrainChunk::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4 &transform, uint32_t flags){
     cocos2d::Layer::draw(renderer, transform, flags);
     
@@ -33,10 +41,9 @@ void TerrainChunk::onDraw(const cocos2d::Mat4 &transform, uint32_t flags) {
     /*kmGLPushMatrix();
      kmGLLoadMatrix(&transform);*/
     
-    auto position = cocos2d::Vec2::ZERO;
-    
+    cocos2d::DrawPrimitives::setDrawColor4F(_DEBUGGING_ONLY_lineColor.r, _DEBUGGING_ONLY_lineColor.g, _DEBUGGING_ONLY_lineColor.b, _DEBUGGING_ONLY_lineColor.a );
     for ( int i = 0; i < points.size()-1; ++i ) {
-        cocos2d::DrawPrimitives::drawLine( points[i]+position, points[i+1]+position );
+        cocos2d::DrawPrimitives::drawLine( points[i], points[i+1] );
     }
 }
 

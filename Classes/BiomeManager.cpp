@@ -82,7 +82,7 @@ std::unique_ptr<Biome> BiomeManager::getNextBiome() {
     lastPath = path;
     
     cocos2d::Color4F nextFogColor( cocos2d::rand_0_1(), cocos2d::rand_0_1(), cocos2d::rand_0_1(), cocos2d::rand_0_1() );
-    Biome::FogInfo nextFogInfo( nextFogColor, 2.f*cocos2d::rand_0_1() );
+    Biome::FogInfo nextFogInfo( nextFogColor, 3.f*cocos2d::rand_0_1() );
     Biome* nextBiome = new Biome( path, nextFogInfo );
     return std::unique_ptr<Biome>( nextBiome );
 }

@@ -12,7 +12,9 @@ bool TerrainLayer::init() {
     if ( !cocos2d::Node::init() ) {
         return false;
     }
-    nodeContainer = cocos2d::Node::create();
+    
+    cocos2d::Size screenSize = cocos2d::Director::getInstance()->getVisibleSize();
+    this->setContentSize( screenSize );
     this->addChild( nodeContainer );
     
     addNewTerrainChunk();
@@ -24,13 +26,10 @@ bool TerrainLayer::init() {
 
 void TerrainLayer::step(float dt) {
     if ( !this->ready ) return;
-    float newX = nodeContainer->getPositionX() + dt * (1.f-this->distanceFactor);
-    nodeContainer->setPositionX( newX );
-    
-    this->handleCycling();
+    ScrollingLayer::step(dt);
 }
 
-void TerrainLayer::handleCycling() {
+void TerrainLayer::handleCycling( ScrollingLayer::MoveDirection moveDirection ) {
     TerrainChunk* front = this->terrainChunks.front();
     float absX = front->getPositionX() + nodeContainer->getPositionX();
     if ( absX <= -front->getContentSize().width ) {
@@ -42,8 +41,8 @@ void TerrainLayer::handleCycling() {
 }
 
 void TerrainLayer::addNewTerrainChunk() {
-    cocos2d::Size screenSize = cocos2d::Director::getInstance()->getVisibleSize();
-    TerrainChunk* newChunk = generator.nextTerrainChunk( screenSize.width, screenSize.height );
+    cocos2d::Size size = this->getContentSize();
+    TerrainChunk* newChunk = generator.nextTerrainChunk( size.width, size.height );
     nodeContainer->addChild( newChunk );
     
     if ( !this->terrainChunks.empty() ) {
@@ -52,4 +51,21 @@ void TerrainLayer::addNewTerrainChunk() {
         newChunk->setPositionX( x );
     }
     this->terrainChunks.push_back( newChunk );
+}
+
+float TerrainLayer::getHeightForScreenXCoordinate(float x) {
+    if ( x < 0 || x >= cocos2d::Director::getInstance()->getVisibleSize().width*2.f ) {
+        throw std::invalid_argument( "invalid onscreen x coordinate" );
+    }
+    // get x in terms of our node container
+    x = this->nodeContainer->convertToNodeSpace( cocos2d::Vec2( x, 0.f ) ).x;
+    
+    // find the chunk that x is over
+    TerrainChunk* chunk;
+    for ( auto& c : this->terrainChunks ) {
+        if ( c->getPositionX() > x ) break;
+        chunk = c;
+    }
+    // use that chunk to get the Y
+    return chunk->getHeightForAbsoluteXCoordinate( x );
 }

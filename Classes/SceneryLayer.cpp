@@ -17,7 +17,7 @@ bool SceneryLayer::init() {
     if ( !cocos2d::Node::init() ) {
         return false;
     }
-    nodeContainer = cocos2d::Node::create();
+    terrain = nullptr;
     this->addChild( nodeContainer );
     hasSetNumberOfNodes = hasSetSizeX = false;
     setDensity( 1.f );
@@ -33,7 +33,9 @@ void SceneryLayer::setUpSceneryNode() {
         SceneryNode* sn = SceneryNode::create();
         nodeContainer->addChild( sn );
         this->sceneryNodes.push_back( sn );
-        sn->setPosition( Vec2(i*spacing, 0.f) );
+        float x = i*spacing;
+        float y = getYPositionForNode(*sn,x);
+        sn->setPosition( x, y );
         sn->setContentSize( Size( spacing, 10.f ) );
         sn->layer = this;
     }
@@ -44,16 +46,12 @@ void SceneryLayer::step(float absDist) {
     if ( !this->ready ) {
         return;
     }
-    float dist = absDist * (1.f-this->distanceFactor);
-    float newX = nodeContainer->getPositionX() + dist;
-    nodeContainer->setPositionX( newX );
+    ScrollingLayer::step( absDist );
     
     auto fogInfo = this->getBiomeManager().getCurrentFogInfo();
     for ( auto& sn : this->sceneryNodes ) {
         sn->updateFog( fogInfo );
     }
-    
-    this->handleCycling( absDist > 0 ? MoveDirection::Backward : MoveDirection::Forward );
 }
 
 void SceneryLayer::handleCycling(MoveDirection direction) {
@@ -94,10 +92,22 @@ void SceneryLayer::handleCycling(MoveDirection direction) {
         }
     }
     float newX = cycleNode->getPositionX() + deltaX;
-    cycleNode->setPositionX( newX );
+    float newY = getYPositionForNode( *cycleNode, deltaX );
+    cycleNode->setPosition( newX, newY );
     cycleNode->setUpSprite();
 }
 
 const BiomeManager& SceneryLayer::getBiomeManager() {
     return scene->getBiomeManager();
+}
+
+float SceneryLayer::getYPositionForNode(const SceneryNode& node, float xOffset) {
+    float newY;
+    if ( this->terrain ) {
+        float screenX = node.getParent()->convertToWorldSpace( cocos2d::Vec2( xOffset+node.getPositionX()+node.getContentSize().width/2.f, 0.f ) ).x;
+        newY = this->terrain->getHeightForScreenXCoordinate( screenX );
+    } else {
+        newY = 0.f;
+    }
+    return newY;
 }

@@ -13,8 +13,9 @@
 #include <deque>
 #include "TerrainChunk.hpp"
 #include "TerrainGenerator.hpp"
+#include "ScrollingLayer.hpp"
 
-class TerrainLayer : public cocos2d::Node {
+class TerrainLayer : public cocos2d::Node, public ScrollingLayer {
 public:
     CREATE_FUNC(TerrainLayer);
     TerrainLayer()
@@ -23,28 +24,17 @@ public:
     {}
     bool init() override;
     //void onEnter() override;
+
+    float getHeightForScreenXCoordinate( float x );
     
-    void initDistanceFactor( float distanceFactor ) {
-        if ( distanceFactor < 0 ) {
-            CCLOG( "invalid distance factor value, must be >= 0" );
-            return;
-        }
-        distanceFactor = std::min<float>( distanceFactor, 1.f );
-        this->distanceFactor = distanceFactor;
-    }
-    float getDistanceFactor() {
-        return this->distanceFactor;
-    }
-    
-    void step( float dt );
+    void step( float dt ) override;
 private:
     bool ready;
     TerrainGenerator generator;
-    cocos2d::Node* nodeContainer;
     float distanceFactor; // 0 = camera plane, 1 = infinitely far
     
     std::deque<TerrainChunk*> terrainChunks;
-    void handleCycling();
+    void handleCycling( ScrollingLayer::MoveDirection moveDirection ) override;
     void addNewTerrainChunk();
 };
 

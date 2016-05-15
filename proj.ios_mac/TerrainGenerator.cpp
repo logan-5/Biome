@@ -27,13 +27,11 @@ void TerrainGenerator::generatePoints() {
     for ( int i = 0; i < resolution; ++i ) {
         this->points.push_back(startingHeight);
     }
-    cocos2d::log("%f", startingHeight);
     
     //std::srand(std::time(0));
     CCRANDOM_0_1();
     CCRANDOM_MINUS1_1();
     this->points[resolution-1] = CCRANDOM_0_1();
-    cocos2d::log("%f", startingHeight);
     midpointDisplace( points, 0, resolution, featureDecay );
     this->points[0] = startingHeight;
     startingHeight = this->points[resolution-1];
