@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "SceneryLayer.hpp"
-#include "Biome.hpp"
+#include "BiomeManager.hpp"
 
 #include <memory>
 
@@ -21,15 +21,15 @@ public:
     
     void update( float dt ) override;
 
-    const Biome& getCurrentBiome() {
-        return *currentBiome;
+    const BiomeManager& getBiomeManager() {
+        return *biomeManager;
     }
 private:
     cocos2d::Vector<SceneryLayer*> sceneryLayers;
     void setUpSceneryZOrders();
     cocos2d::LayerColor* background;
 
-    std::unique_ptr<Biome> currentBiome;
+    std::unique_ptr<BiomeManager> biomeManager;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

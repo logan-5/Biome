@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include <deque>
-#include "Biome.hpp"
+class BiomeManager;
 
 enum class MoveDirection {
     Forward,
@@ -84,7 +84,7 @@ public:
         this->scene = scene;
     }
     
-    const Biome& getBiome();
+    const BiomeManager& getBiomeManager();
     
     void step( float absDist );
     

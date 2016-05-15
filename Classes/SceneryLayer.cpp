@@ -48,6 +48,11 @@ void SceneryLayer::step(float absDist) {
     float newX = nodeContainer->getPositionX() + dist;
     nodeContainer->setPositionX( newX );
     
+    auto fogInfo = this->getBiomeManager().getCurrentFogInfo();
+    for ( auto& sn : this->sceneryNodes ) {
+        sn->updateFog( fogInfo );
+    }
+    
     this->handleCycling( absDist > 0 ? MoveDirection::Backward : MoveDirection::Forward );
 }
 
@@ -93,6 +98,6 @@ void SceneryLayer::handleCycling(MoveDirection direction) {
     cycleNode->setUpSprite();
 }
 
-const Biome& SceneryLayer::getBiome() {
-    return scene->getCurrentBiome();
+const BiomeManager& SceneryLayer::getBiomeManager() {
+    return scene->getBiomeManager();
 }

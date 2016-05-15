@@ -13,19 +13,19 @@
 
 struct Biome {
 public:
-    friend class MainScene;
+    friend class BiomeManager;
     struct FogInfo {
-        const cocos2d::Color4F color;
-        const float thickness;
+        cocos2d::Color4F color;
+        float thickness;
         FogInfo( cocos2d::Color4F color = cocos2d::Color4F::WHITE, float thickness = 1.f )
         :   color( color ),
         thickness( thickness )
         {}
     };
-
+    
     Biome( FogInfo fogInfo = FogInfo(), std::vector<std::string> scenerySprites = std::vector<std::string>() );
     Biome( std::string folderPath, FogInfo fogInfo = FogInfo() );
-
+    
     const std::vector<std::string>& getScenerySprites() const {
         return scenerySprites;
     }
@@ -38,7 +38,7 @@ public:
     const FogInfo& getFogInfo() const {
         return this->fogInfo;
     }
-
+    
 private:
     std::vector<std::string> scenerySprites;
     FogInfo fogInfo;

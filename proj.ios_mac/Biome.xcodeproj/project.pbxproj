@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021C3E8E1CE830A600DFF9EB /* BiomeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */; };
 		02912B901CE7C8B5005FEC77 /* SceneryLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B8E1CE7C8B5005FEC77 /* SceneryLayer.cpp */; };
 		02912B931CE7CEB4005FEC77 /* SceneryNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */; };
 		02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02912B951CE7F6DF005FEC77 /* Biome.cpp */; };
@@ -69,6 +70,8 @@
 
 /* Begin PBXFileReference section */
 		01F741B993AED8B544209AD5 /* res */ = {isa = PBXFileReference; lastKnownFileType = "?"; name = res; path = ../Resources/res; sourceTree = "<group>"; };
+		021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BiomeManager.cpp; sourceTree = "<group>"; };
+		021C3E8D1CE830A600DFF9EB /* BiomeManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BiomeManager.hpp; sourceTree = "<group>"; };
 		02912B8E1CE7C8B5005FEC77 /* SceneryLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneryLayer.cpp; sourceTree = "<group>"; };
 		02912B8F1CE7C8B5005FEC77 /* SceneryLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneryLayer.hpp; sourceTree = "<group>"; };
 		02912B911CE7CEB4005FEC77 /* SceneryNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneryNode.cpp; sourceTree = "<group>"; };
@@ -267,6 +270,8 @@
 				02912B991CE81BAE005FEC77 /* SceneryNodeSprite.hpp */,
 				02912B951CE7F6DF005FEC77 /* Biome.cpp */,
 				02912B961CE7F6DF005FEC77 /* Biome.hpp */,
+				021C3E8C1CE830A600DFF9EB /* BiomeManager.cpp */,
+				021C3E8D1CE830A600DFF9EB /* BiomeManager.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -451,6 +456,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				02912B971CE7F6DF005FEC77 /* Biome.cpp in Sources */,
 				02912B9A1CE81BAE005FEC77 /* SceneryNodeSprite.cpp in Sources */,
+				021C3E8E1CE830A600DFF9EB /* BiomeManager.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

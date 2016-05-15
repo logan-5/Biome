@@ -10,6 +10,7 @@
 #define SceneryNode_hpp
 
 #include "cocos2d.h"
+#include "Biome.hpp"
 
 class SceneryNodeSprite;
 class SceneryLayer;
@@ -21,6 +22,7 @@ public:
     bool init() override;
     void onEnter() override;
     void setUpSprite();
+    void updateFog( const Biome::FogInfo& fogInfo );
 private:
     SceneryLayer* layer;
     SceneryNodeSprite* sprite;

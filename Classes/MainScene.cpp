@@ -115,10 +115,9 @@ bool MainScene::init()
     
     this->scheduleUpdate();
     
-    std::vector<std::string> scenerySprites;
-    currentBiome = std::unique_ptr<Biome>(new Biome( "Biome1", Biome::FogInfo(Color4F::GRAY, .5f) ));
+    biomeManager = std::unique_ptr<BiomeManager>( new BiomeManager );
     
-    background = LayerColor::create( Color4B(currentBiome->getFogColor()), screenSize.width, screenSize.height );
+    background = LayerColor::create( Color4B(biomeManager->getCurrentFogInfo().color), screenSize.width, screenSize.height );
     this->addChild( background );
     background->setLocalZOrder( std::numeric_limits<int>::min() );
     
@@ -139,7 +138,11 @@ void MainScene::setUpSceneryZOrders() {
 }
 
 void MainScene::update(float dt) {
+    this->biomeManager->step( dt );
     for ( auto& sl : this->sceneryLayers ) {
-        sl->step( -3.f );
+        sl->step( -4.f );
+        
     }
+
+    background->setColor( Color3B( this->biomeManager->getCurrentFogInfo().color ) );
 }

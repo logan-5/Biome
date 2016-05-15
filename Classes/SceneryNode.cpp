@@ -9,6 +9,7 @@
 #include "SceneryNode.hpp"
 #include "SceneryLayer.hpp"
 #include "SceneryNodeSprite.hpp"
+#include "BiomeManager.hpp"
 
 using cocos2d::Vec2;
 
@@ -31,15 +32,22 @@ void SceneryNode::setUpSprite() {
     bool visibilityCoinToss = cocos2d::rand_0_1() < layer->getDensity();
     if ( visibilityCoinToss ) {
         if ( this->sprite ) this->sprite->removeFromParent();
-
-        auto biome = layer->getBiome();
-        auto spriteList = biome.getScenerySprites();
+        
+        auto& biomeManager = layer->getBiomeManager();
+        auto spriteList = biomeManager.getScenerySpriteList();
         std::string filename = spriteList[spriteList.size()*cocos2d::rand_0_1()];
-        this->sprite = SceneryNodeSprite::create( filename, layer->getDistanceFactor(), layer->getBiome().getFogInfo() );
-
+        this->sprite = SceneryNodeSprite::create( filename, layer->getDistanceFactor(), biomeManager.getCurrentFogInfo() );
+        
         this->addChild( sprite );
         this->sprite->setScale( layer->getSpriteScale() + layer->getSpriteScaleVar()*cocos2d::rand_minus1_1() );
     } else {
         if ( this->sprite ) this->sprite->setVisible( false );
     }
+}
+
+void SceneryNode::updateFog(const Biome::FogInfo &fogInfo) {
+    if ( !this->sprite ) {
+        return;
+    }
+    this->sprite->setFogInfo(fogInfo);
 }
