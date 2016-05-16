@@ -16,14 +16,21 @@
  */
 class TerrainChunk : public cocos2d::Layer {
 public:
-    friend class TerrainGenerator;
     friend class TerrainLayer;
     CREATE_FUNC(TerrainChunk);
     bool init() override;
+    void onExit() override;
     
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t flags) override;
-
+    
+    void setPoints( const std::vector<cocos2d::Vec2>& points );
 private:
+    typedef struct v {
+        GLfloat x;
+        GLfloat y;
+        v( GLfloat x, GLfloat y ) : x( x ), y( y ) {}
+    } terrain_vertex;
+    
     /**
      * Used internally by TerrainLayer to find the height at a given x coordinate.  x is given in terms of the chunk's nodeContainer.
      */
@@ -31,6 +38,9 @@ private:
     std::vector<cocos2d::Vec2> points;
     cocos2d::CustomCommand _customCmd;
     void onDraw( const cocos2d::Mat4 &transform, uint32_t flags);
+    std::vector<terrain_vertex> vertices;
+    std::vector<terrain_vertex> texCoords;
+    cocos2d::Sprite* textureSprite;
     
     cocos2d::Color4F _DEBUGGING_ONLY_lineColor; ///< for debugging only.  choose a random line color for this terrain, to easily see the separation of different chunks.
 };

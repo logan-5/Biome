@@ -105,11 +105,11 @@ bool MainScene::init()
     test->setSpriteScaleVar( 0.1f );
     rootNode->addChild( test );
     
-    t = TerrainLayer::create();
-    rootNode->addChild(t);
-    this->terrainLayers.pushBack( t );
+    //        t = TerrainLayer::create();
+    //        rootNode->addChild(t);
+    //        this->terrainLayers.pushBack( t );
     SceneryLayer* test2 = SceneryLayer::create();
-    test2->initTerrainLayer( t );
+    //        test2->initTerrainLayer( t );
     this->sceneryLayers.pushBack( test2 );
     test2->setScene( this );
     test2->initSizeX( screenSize.width );
@@ -149,7 +149,7 @@ void MainScene::setUpSceneryZOrders() {
 }
 
 void MainScene::update(float dt) {
-    //this->biomeManager->step( dt );
+    this->biomeManager->step( dt );
     
     // NOTE: terrain layers MUST be stepped first
     // so scenery layers have the terrain they need

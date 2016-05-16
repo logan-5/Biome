@@ -13,10 +13,12 @@ TerrainChunk* TerrainGenerator::nextTerrainChunk(float width, float height) {
     
     TerrainChunk* t = TerrainChunk::create();
     double stepX = width / (this->points.size()-1);
+    std::vector<cocos2d::Vec2> p;
     for ( int i = 0; i < this->points.size(); ++i ) {
         cocos2d::Vec2 point( i*stepX, this->points[i]*height );
-        t->points.push_back( point );
+        p.push_back( point );
     }
+    t->setPoints( std::move( p ) );
     t->setContentSize( cocos2d::Size( width, height ) );
     return t;
 }
@@ -37,12 +39,12 @@ void TerrainGenerator::generatePoints() {
     newPoints[features-1] = CCRANDOM_0_1();
     midpointDisplace( newPoints, 0, features );
     newPoints[0] = startingHeight;
-
+    
     // add smoothing
     if ( this->smoothing > 0 ) {
         decltype(newPoints) tempNewPoints;
         tempNewPoints.reserve( features*(1+this->smoothing) );
-
+        
         double deltaAngle = M_PI / (this->smoothing+1.0);
         int i = 0;
         for ( ; i < newPoints.size()-1; ++i ) {
@@ -56,8 +58,8 @@ void TerrainGenerator::generatePoints() {
             }
         }
         tempNewPoints.push_back(newPoints[i]);
-
-        newPoints = tempNewPoints;
+        
+        newPoints = std::move(tempNewPoints);
     }
     this->points = newPoints;
     this->startingHeight = newPoints.back();
