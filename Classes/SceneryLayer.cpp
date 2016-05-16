@@ -48,7 +48,7 @@ void SceneryLayer::step(float absDist) {
     }
     ScrollingLayer::step( absDist );
     
-    auto fogInfo = this->getBiomeManager().getCurrentFogInfo();
+    auto& fogInfo = this->getBiomeManager().getCurrentFogInfo();
     for ( auto& sn : this->sceneryNodes ) {
         sn->updateFog( fogInfo );
     }

@@ -44,6 +44,7 @@ public:
     const Biome::FogInfo& getCurrentFogInfo() const;
     //TerrainGenerator& getTerrainGenerator() const;
 private:
+    std::string lastPath;
     std::unique_ptr<Biome> currentBiome, nextBiome;
     //std::unique_ptr<TerrainGenerator> terrainGenerator;
     Biome::FogInfo currentFogInfo;
@@ -56,7 +57,6 @@ private:
     
     const Biome& getCurrentBiome() const;
     std::unique_ptr<Biome> getNextBiome();
-    std::string lastPath;
 };
 
 #endif /* BiomeManager_hpp */

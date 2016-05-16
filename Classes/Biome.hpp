@@ -10,6 +10,7 @@
 #define Biome_hpp
 
 #include <vector>
+#include <iostream>
 
 /** @class Biome
  @brief A data structure representing a biome.  Tightly coupled with BiomeManager, which you should prefer to interact with.

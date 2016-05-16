@@ -101,7 +101,7 @@ bool MainScene::init()
     test->setScene( this );
     test->initSizeX( screenSize.width );
     test->initNumberOfNodes( 5 );
-    test->setDensity( 0.6 );
+    test->setDensity( 1);//0.6 );
     test->setSpriteScaleVar( 0.1f );
     rootNode->addChild( test );
     
@@ -117,7 +117,7 @@ bool MainScene::init()
     test2->initDistanceFactor( .4f );
     test2->setSpriteScale( 0.75f );
     test2->setSpriteScaleVar( 0.1f );
-    test2->setDensity( 0.75 );
+    test2->setDensity( 1);//0.75 );
     rootNode->addChild( test2 );
     
     this->setUpSceneryZOrders();
@@ -149,7 +149,7 @@ void MainScene::setUpSceneryZOrders() {
 }
 
 void MainScene::update(float dt) {
-    this->biomeManager->step( dt );
+    //this->biomeManager->step( dt );
     
     // NOTE: terrain layers MUST be stepped first
     // so scenery layers have the terrain they need

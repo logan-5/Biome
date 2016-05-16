@@ -32,7 +32,9 @@ public:
     :   distanceFactor( distanceFactor ),
     fogInfo( &fogInfo )
     {}
+    ~SceneryNodeSprite();
     
+    void onExit() override;
     void onEnter() override;
     
     /**
@@ -43,6 +45,7 @@ private:
     void setUpFogShader();
     float distanceFactor;
     const Biome::FogInfo* fogInfo;
+    cocos2d::GLProgram* shaderProgram;
 };
 
 #endif /* SceneryNodeSprite_hpp */

@@ -11,6 +11,8 @@
 using cocos2d::Vec2;
 using cocos2d::GLProgram;
 
+#define DISABLE_SHADER false
+
 void SceneryNodeSprite::onEnter() {
     cocos2d::Sprite::onEnter();
     this->setAnchorPoint( Vec2( 0.5f, 0.f ) );
@@ -23,7 +25,8 @@ void SceneryNodeSprite::onEnter() {
 // I miss Cocos2D-Spritebuilder 3.x
 // where it's much simpler than this
 void SceneryNodeSprite::setUpFogShader() {
-    auto shaderProgram = GLProgram::createWithFilenames("ScenerySprite.vsh", "ScenerySprite.fsh");
+#if !DISABLE_SHADER
+    this->shaderProgram = GLProgram::createWithFilenames("ScenerySprite.vsh", "ScenerySprite.fsh");
     shaderProgram->link();
     shaderProgram->updateUniforms();
     shaderProgram->retain();
@@ -35,6 +38,7 @@ void SceneryNodeSprite::setUpFogShader() {
     this->getGLProgramState()->setUniformTexture("u_texture", this->getTexture());
     this->getGLProgramState()->setUniformFloat("u_distanceFactor", this->distanceFactor);
     this->setFogInfo( *this->fogInfo );
+#endif
 }
 
 inline cocos2d::Vec3 vec3FromColor4F( const cocos2d::Color4F& col ) {
@@ -43,7 +47,20 @@ inline cocos2d::Vec3 vec3FromColor4F( const cocos2d::Color4F& col ) {
 
 void SceneryNodeSprite::setFogInfo( const Biome::FogInfo& fogInfo ) {
     this->fogInfo = &fogInfo;
+#if !DISABLE_SHADER
     auto state = this->getGLProgramState();
     state->setUniformVec3( "u_fogColor", vec3FromColor4F(this->fogInfo->color) );
     state->setUniformFloat( "u_fogThickness", this->fogInfo->thickness );
+#endif
+}
+
+void SceneryNodeSprite::onExit() {
+    //this->setGLProgram(shaderProgram);
+}
+
+SceneryNodeSprite::~SceneryNodeSprite() {
+    //this->setGLProgram(nullptr);
+    this->shaderProgram->release();
+    cocos2d::GLProgramCache::destroyInstance();
+    //delete this->shaderProgram;
 }

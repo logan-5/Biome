@@ -26,17 +26,14 @@ Biome::FogInfo tweenFogInfo( Biome::FogInfo f1, Biome::FogInfo f2, float fac ) {
 
 BiomeManager::BiomeManager()
 : nextBiome( std::unique_ptr<Biome>( nullptr ) ),
-currentBiomeDuration( 0.f ),
 currentBiomeProgress( 0.f ),
 tweenDuration( 0.f ),
 tweenProgress( 0.f ),
 lastPath("Biome1"),
-state(State::Normal)//,
-                    //terrainGenerator( std::unique_ptr<TerrainGenerator>( new TerrainGenerator() ) )
-{
-    currentBiome = std::unique_ptr<Biome>( new Biome(lastPath) );
-    currentBiomeDuration = cocos2d::random( 10.f, 20.f );
-}
+state(State::Normal),
+currentBiome (std::unique_ptr<Biome>( new Biome(lastPath) )),
+currentBiomeDuration(cocos2d::random( 10.f, 20.f ))
+{}
 
 void BiomeManager::step(float dt) {
     switch ( this->state ) {
